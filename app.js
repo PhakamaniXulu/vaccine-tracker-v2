@@ -93,19 +93,22 @@ const vm = new Vue({
       this.currentFlag = this.convertCode(iso)[0].iso_2.toLowerCase() + '.svg'
 
       let overview = fetch(
+       
         `https://adhtest.opencitieslab.org/api/3/action/datastore_search?resource_id=5487a46e-f7eb-4b00-bb5d-403df1046aef&q=${iso}`
       )
         .then((data) => data.json())
         .then((data) => {
-          this.currentCountry = data[0].country
-          data[data.length - 1].total_vaccinations =
-            data[data.length - 1].total_vaccine_doses_to_date
-          data[data.length - 1].total_vaccinations_per_hundred = (
-            (+data[data.length - 1].total_vaccine_doses_to_date /
-              +data[0].population) *
+          console.log(data)
+          console.log(data.result)
+          this.currentCountry = data.result.records[0].country
+          data.result.records[data.result.records.length - 1].total_vaccinations =
+          data.result.records[data.result.records.length - 1].total_vaccine_doses_to_date
+          data.result.records[data.result.records.length - 1].total_vaccinations_per_hundred = (
+            (+data.result.records[data.result.records.length - 1].total_vaccine_doses_to_date /
+              +data.result.records[0].population) *
             100
           ).toFixed(2)
-          this.currentOverview = data[data.length - 1]
+          this.currentOverview = data.result.records[data.result.records.length - 1]
         })
     },
     async getVaccinesBought() {
