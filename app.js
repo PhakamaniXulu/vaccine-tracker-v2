@@ -93,7 +93,7 @@ const vm = new Vue({
       this.currentFlag = this.convertCode(iso)[0].iso_2.toLowerCase() + '.svg'
 
       let overview = fetch(
-        `https://api.mediahack.co.za/adh/vaccine-tracker/vaccinations-by-country.php?cc=${iso}`
+        `https://adhtest.opencitieslab.org/api/3/action/datastore_search?resource_id=5487a46e-f7eb-4b00-bb5d-403df1046aef&q=${iso}`
       )
         .then((data) => data.json())
         .then((data) => {
@@ -126,6 +126,8 @@ const vm = new Vue({
     async getVaccinesReceived() {
       await fetch(
         'https://api.datadesk.co.za/csvjson.php?table=vaccines_received_africa_3682450'
+        // 'https://adhtest.opencitieslab.org/api/3/action/datastore_search?resource_id=eaf7e556-704c-4b12-b8d4-d78d9e2d8fa4'
+        
       )
         .then((response) => response.json())
         .then((response) => {
